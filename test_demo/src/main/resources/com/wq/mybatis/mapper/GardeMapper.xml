@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.mybatis.mapper.GardeMapper">
+    <resultMap id="garde2" type="Grade">
+        <id property="cid" column="c_id"/>
+        <result property="className" column="class_name"/>
+        <result property="classEmail" column="class_email"/>
+        <collection property="student"
+                    select="com.wq.mybatis.mapper.StudentMapper.getStu"
+                    column="c_id">
+        </collection>
+    </resultMap>
+    <select id="getGradeById" resultMap="garde2">
+        select * from class where c_id=#{cid}
+    </select>
+    <resultMap id="garde" type="Grade">
+        <id property="cid" column="c_id"/>
+        <result property="className" column="class_name"/>
+        <result property="classEmail" column="class_email"/>
+    </resultMap>
+    <select id="getGrade" resultMap="garde">
+        select * from class where c_id=#{cid}
+    </select>
+
+
+
+    <select id="getStuOfGrade" resultMap="garde">
+        select * from class where c_id=#{cid}
+    </select>
+</mapper>

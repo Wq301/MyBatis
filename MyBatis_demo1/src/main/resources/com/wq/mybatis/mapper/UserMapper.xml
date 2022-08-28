@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.mybatis.mapper.UserMapper">
+    <insert id="insertUser">
+        insert into t_user values(null,'王哈哈','789465',15,'女','12345@qq.com')
+    </insert>
+    <update id="updateUser">
+        update t_user set username="张三" where id=1
+    </update>
+    <delete id="deleteUser">
+        delete from t_user where id=7
+    </delete>
+    <select id="getUserById" resultType="User">
+        select * from t_user where id=3
+    </select>
+    <select id="getAllUser" resultType="User">
+        select * from t_user
+    </select>
+</mapper>

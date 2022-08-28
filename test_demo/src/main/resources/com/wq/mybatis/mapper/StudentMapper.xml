@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wq.mybatis.mapper.StudentMapper">
+    <resultMap id="stu" type="Student">
+        <id property="sid" column="stu_id"/>
+        <result property="stuName" column="stu_name"/>
+        <result property="stuAge" column="stu_age"/>
+        <result property="cid" column="c_id"/>
+    </resultMap>
+    <select id="getAllStu" resultMap="stu">
+        select * from student
+    </select>
+
+    <insert id="insertStu" useGeneratedKeys="true" keyProperty="stu_id">
+        insert into student values(null,#{stu_name},#{stu_age},#{c_id})
+    </insert>
+
+    <update id="updataStuById">
+        update student set stu_name="abc" where stu_id=#{stu_id}
+    </update>
+
+    <delete id="deleteStuByName">
+        delete from student where stu_name=#{stuName}
+    </delete>
+
+    <!--多对一-->
+    <resultMap id="student" type="Student">
+        <id property="sid" column="stu_id"/>
+        <result property="stuName" column="stu_name"/>
+        <result property="stuAge" column="stu_age"/>
+        <result property="cid" column="c_id"/>
+        <association property="grade"
+                     select="com.wq.mybatis.mapper.GardeMapper.getGrade"
+                     column="c_id">
+        </association>
+    </resultMap>
+    <select id="getStuandGarde" resultMap="student">
+        select * from student
+    </select>
+    <!--一对多-->
+    <select id="getStu" resultType="Student">
+        select stu_id sid,stu_name stuName,stu_age stuAge from student where c_id=#{cid}
+    </select>
+
+
+    <resultMap id="s" type="Student">
+        <id property="sid" column="stu_id"/>
+        <result property="stuName" column="stu_name"/>
+        <result property="stuAge" column="stu_age"/>
+        <result property="cid" column="c_id"/>
+        <association property="grade"
+                     select="com.wq.mybatis.mapper.GardeMapper.getStuOfGrade"
+                     column="c_id">
+        </association>
+    </resultMap>
+    <select id="getStuandGar" resultMap="s">
+        select * from student where stu_id=#{sid}
+    </select>
+</mapper>
